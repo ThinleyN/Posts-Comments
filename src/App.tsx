@@ -33,7 +33,7 @@ const App = () => {
               element={<Posts />}
             >
             </Route>
-            
+            <Route path='*' element={<Navigate to='/posts' replace />} />
           </Routes>
         </Layout>
       </BrowserRouter>
