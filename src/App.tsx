@@ -7,6 +7,7 @@ import { Layout } from 'antd';
 import { Sidebar } from './components/pages/Sidebar';
 import { createUseStyles } from "react-jss";
 import { Posts } from './components/pages/Posts';
+import { DataProvider } from './dataContext';
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+      <DataProvider>
         <Layout className={classes.container}>
           <Sidebar />
           <Routes>
@@ -36,6 +38,7 @@ const App = () => {
             <Route path='*' element={<Navigate to='/posts' replace />} />
           </Routes>
         </Layout>
+      </DataProvider>
       </BrowserRouter>
     </ThemeProvider>
   );
