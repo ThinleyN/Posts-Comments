@@ -44,7 +44,7 @@ const Comment: React.FC<CommentProps> = ({id, postId, body}) => {
             </div>
             <div className={classes.commentInfo}>
               <span>
-                Comment ID: {id}
+                Comment ID: {id}{" "}
               </span>
               <span>
                 Post ID: {postId}
