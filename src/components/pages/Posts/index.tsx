@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { DataContext } from "../../../dataContext";
 import { Post } from "../../molecules/Post";
 import { CommentProps } from "../../molecules/Comments";
+import { Spin } from "antd";
 
 const useStyles = createUseStyles((theme: any) => {
     return {
@@ -11,6 +12,13 @@ const useStyles = createUseStyles((theme: any) => {
           width: "100%",
           padding: 20
         },
+        spinner: {
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
     };
 });
 
@@ -51,11 +59,15 @@ const Posts = () => {
     
     return (
         <div className={classes.postContainer}>
-            {posts.length && posts.map(post => {
+            {posts.length ? posts.map(post => {
               return (
                 <Post key={post.id} title={post.title} id={post.id} comments={post.comments} />
               )
-            })}
+            }) : (
+              <div className={classes.spinner}>
+                <Spin />
+              </div>
+            )}
         </div>
     );
 };
