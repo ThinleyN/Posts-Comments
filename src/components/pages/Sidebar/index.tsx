@@ -1,6 +1,5 @@
-import { ContainerOutlined } from "@ant-design/icons";
+import { ContainerOutlined, FileAddOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React from "react";
 import { createUseStyles } from "react-jss";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
@@ -45,6 +44,9 @@ const Sidebar = () => {
             >
                 <Menu.Item icon={<ContainerOutlined />} key="posts">
                     <Link to={"/posts"}>Posts</Link>
+                </Menu.Item>
+                <Menu.Item icon={<FileAddOutlined />} key="add-post">
+                    <Link to={"/add-post"}>Add Post</Link>
                 </Menu.Item>
             </Menu>
         </Layout.Sider>

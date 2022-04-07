@@ -9,6 +9,7 @@ import { createUseStyles } from "react-jss";
 import { Posts } from './components/pages/Posts';
 import { DataProvider } from './dataContext';
 import { PostPage } from './components/pages/Post';
+import { AddPost } from './components/pages/AddPost';
 
 
 const App = () => {
@@ -39,6 +40,11 @@ const App = () => {
             <Route
               path="/post/:id"
               element={<PostPage />}
+            >
+            </Route>
+            <Route
+              path="/add-post"
+              element={<AddPost />}
             >
             </Route>
             <Route path='*' element={<Navigate to='/posts' replace />} />

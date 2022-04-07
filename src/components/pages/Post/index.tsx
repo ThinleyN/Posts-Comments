@@ -49,7 +49,7 @@ const PostPage: React.FC<Props> = ({}) => {
       if(id){
         getPost(Number(id));
       }
-    },[id,data.data]);
+    },[id,data]);
     
 
     const getPost= (id:Number) => {
