@@ -84,7 +84,6 @@ const AddPost: React.FC<Props> = ({}) => {
     const validate = () => {
       let error:any = {};
       Object.entries(formValue).map(item => {
-        console.log(item,"item")
         if(item[1] === "" || !item[1]){
           error[item[0]] = '*Required';
         }
