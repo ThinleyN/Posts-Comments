@@ -9,8 +9,7 @@ const useStyles = createUseStyles((theme: any) => {
     return {
         postContainer:{
           width: "100%",
-          paddingTop: 20,
-          paddingBottom: 20
+          padding: 20
         },
     };
 });
@@ -55,7 +54,6 @@ const Posts = () => {
     return (
         <div className={classes.postContainer}>
           {posts.length && posts.map(post => {
-            console.log(post,"post")
             return (
               <Post key={post.id} title={post.title} id={post.id} comments={post.comments} />
             )

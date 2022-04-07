@@ -20,6 +20,7 @@ let useStyles:any = createUseStyles((theme: any) => {
         "&:last-child": {
           marginBottom: 0
         },
+        paddingBottom: 20
       },
       title:{
         color: theme.textLightBlack
@@ -28,6 +29,10 @@ let useStyles:any = createUseStyles((theme: any) => {
         color: theme.textLightBlack
       },
       showComments: {
+      },
+      commentHolder: {
+        padding: 20,
+        paddingBottom: 0
       }
         
     };
@@ -57,7 +62,9 @@ const Post: React.FC<Props> = ({title,id,comments}) => {
           {showComments && (
            comments.length ?  comments.map(comment => {
               return(
-                <Comment id={comment.id} postId={comment.postId} body={comment.body} />
+                <div key={comment.id} className={classes.commentHolder}>
+                  <Comment id={comment.id} postId={comment.postId} body={comment.body} />
+                </div>
               )
             }) :
             ( 
