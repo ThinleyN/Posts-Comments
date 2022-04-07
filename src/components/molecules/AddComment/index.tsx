@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Button } from "../../atoms/Button";
 import { TextField } from "../../atoms/Input";
-import {writeJsonFile} from 'write-json-file';
 import { DataContext } from "../../../dataContext";
 import { CommentProps } from "../Comments";
 import { Alert } from "../../atoms/Alert";
