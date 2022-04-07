@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
-import { useLocation } from "react-router";
 import { DataContext } from "../../../dataContext";
 import { Post } from "../../molecules/Post";
 import { CommentProps } from "../../molecules/Comments";

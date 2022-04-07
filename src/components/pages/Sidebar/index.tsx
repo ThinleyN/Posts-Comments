@@ -27,19 +27,12 @@ const useStyles = createUseStyles((theme: any) => {
 const Sidebar = () => {
     const classes = useStyles();
     const location = useLocation();
-    const keys = ["posts"];
     
     return (
         <Layout.Sider className={classes.sidebar}>
             <Menu
                 className={classes.menuBlock}
                 mode="inline"
-                defaultSelectedKeys={[
-                    keys.find(val => {
-                        if (location.pathname === "/") return "posts";
-                        return location.pathname.includes(val);
-                    }) || ""
-                ]}
                 selectedKeys={[location.pathname.substring(1)]}
             >
                 <Menu.Item icon={<ContainerOutlined />} key="posts">
