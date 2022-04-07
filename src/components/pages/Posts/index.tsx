@@ -24,7 +24,6 @@ interface PostsProps {
 
 const Posts = () => {
     const classes = useStyles();
-    const location = useLocation();
     const value = useContext(DataContext);
     const [posts, setPosts] = useState([] as Array<PostsProps>);
 
@@ -32,8 +31,7 @@ const Posts = () => {
       if(value && value.data){
         init();
       }
-    },[value]);
-    
+    },[value.data]);
     const init = () => {
       const postsArr: Array<PostsProps> = [];
       value.data.posts.map((post:any) => {
@@ -53,11 +51,11 @@ const Posts = () => {
     
     return (
         <div className={classes.postContainer}>
-          {posts.length && posts.map(post => {
-            return (
-              <Post key={post.id} title={post.title} id={post.id} comments={post.comments} />
-            )
-          })}
+            {posts.length && posts.map(post => {
+              return (
+                <Post key={post.id} title={post.title} id={post.id} comments={post.comments} />
+              )
+            })}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Button } from "../../atoms/Button";
 import { Comment } from "../Comments";
+import { AddComment } from "../AddComment";
 
 export interface Props {
    id: number,
@@ -66,13 +67,15 @@ const Post: React.FC<Props> = ({title,id,comments}) => {
                   <Comment id={comment.id} postId={comment.postId} body={comment.body} />
                 </div>
               )
-            }) :
+            }
+            ) :
             ( 
             <div>There is no comments to display</div>
             )
             )
           }
 
+          {showComments && <AddComment postId={id}/>}
         </div>
     );
 };
