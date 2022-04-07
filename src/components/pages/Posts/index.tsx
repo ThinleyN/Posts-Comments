@@ -9,7 +9,9 @@ const useStyles = createUseStyles((theme: any) => {
     return {
         postContainer:{
           width: "100%",
-          padding: 20
+          padding: 20,
+          maxHeight: '100vh',
+          overflow: 'scroll'
         },
         spinner: {
           width: '100%',
