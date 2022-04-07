@@ -4,7 +4,8 @@ import { createUseStyles } from "react-jss";
 import { useParams } from "react-router";
 import { DataContext } from "../../../dataContext";
 import { Post, PostProp } from "../../molecules/Post";
-import { AddCommentProp } from "../../molecules/AddComment";
+import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
 
 export interface Props {
    
@@ -34,6 +35,13 @@ let useStyles:any = createUseStyles((theme: any) => {
       commentHolder: {
         padding: 20,
         paddingBottom: 0
+      },
+      spinner :{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
       }
         
     };
@@ -44,6 +52,7 @@ const PostPage: React.FC<Props> = ({}) => {
     const data = useContext(DataContext);
     const {id} = useParams();
     const [post, setPost] = useState({} as PostProp);
+    const navigate = useNavigate();
 
     useEffect(() => {
       if(id){
@@ -54,8 +63,10 @@ const PostPage: React.FC<Props> = ({}) => {
 
     const getPost= (id:Number) => {
       const postData = { comments: [] as Array<CommentProps> } as PostProp;
+      let idExists =  false;
       data.data.posts.map((item:any) => {
         if(item.id === id){
+           idExists =  true;
           postData.id = item.id;
           postData.title = item.title;
         }
@@ -65,6 +76,9 @@ const PostPage: React.FC<Props> = ({}) => {
           postData.comments.push(comment);
         }
       });
+      if(!idExists){
+        navigate('/posts');
+      }
       setPost({...postData});
     }
     
@@ -75,34 +89,10 @@ const PostPage: React.FC<Props> = ({}) => {
             <Post id={post.id} title={post.title} comments={post.comments} />
           ): 
           (
-            'loading'
+            <div className={classes.spinner}>
+              <Spin />
+            </div>
           )}
-          {/* <h1 className={classes.title}>
-            {title}
-          </h1>
-          <h3 className={classes.idHolder}>
-            The post id is {id}
-          </h3>
-          <Button className={classes.showComments} onClick={handleShowComment}>
-          {showComments ? 'Hide Comments' : `Show comments (${comments.length})`}   
-          </Button>
-
-          {showComments && (
-           comments.length ?  comments.map(comment => {
-              return(
-                <div key={comment.id} className={classes.commentHolder}>
-                  <Comment id={comment.id} postId={comment.postId} body={comment.body} />
-                </div>
-              )
-            }
-            ) :
-            ( 
-            <div>There is no comments to display</div>
-            )
-            )
-          }
-
-          {showComments && <AddComment postId={id}/>} */}
         </div>
     );
 };
