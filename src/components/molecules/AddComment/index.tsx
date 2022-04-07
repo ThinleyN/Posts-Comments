@@ -63,18 +63,19 @@ const AddComment: React.FC<AddCommentProp> = ({postId}) => {
       let idExists = false;
 
       data.data.comments.map((item:any) => {
-        if(item.id == comment.id){
+        if(item.id === comment.id){
           idExists = true;
         }
       })
 
-      if(idExists){
-        Alert("Id already exists", "error");
-        return;
-      }
-
+      
       const notValid = validateData();
       if(notValid){
+        return;
+      }
+      
+      if(idExists){
+        Alert("Id already exists", "error");
         return;
       }
 
@@ -84,6 +85,11 @@ const AddComment: React.FC<AddCommentProp> = ({postId}) => {
       Alert("Comment Added", "success");
 
       setCommentAdding(false);
+      setFormError({id: '',
+      body: ''});
+      setFormValue({ body:'',
+      id: 0,
+      postId: 0})
     }
 
     const validateData = () => {
