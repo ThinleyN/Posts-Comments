@@ -8,6 +8,7 @@ import { Sidebar } from './components/pages/Sidebar';
 import { createUseStyles } from "react-jss";
 import { Posts } from './components/pages/Posts';
 import { DataProvider } from './dataContext';
+import { PostPage } from './components/pages/Post';
 
 
 const App = () => {
@@ -33,6 +34,11 @@ const App = () => {
             <Route
               path="/posts"
               element={<Posts />}
+            >
+            </Route>
+            <Route
+              path="/post/:id"
+              element={<PostPage />}
             >
             </Route>
             <Route path='*' element={<Navigate to='/posts' replace />} />

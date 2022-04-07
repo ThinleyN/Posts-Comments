@@ -1,14 +1,13 @@
 import { CommentProps } from "../../molecules/Comments";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
-import { Button } from "../../atoms/Button";
-import { Comment } from "../Comments";
-import { AddComment } from "../AddComment";
+import { useParams } from "react-router";
+import { DataContext } from "../../../dataContext";
+import { Post, PostProp } from "../../molecules/Post";
+import { AddCommentProp } from "../../molecules/AddComment";
 
-export interface PostProp {
-   id: number,
-   title: string,
-   comments: Array<CommentProps>
+export interface Props {
+   
 }
 
 let useStyles:any = createUseStyles((theme: any) => {
@@ -16,12 +15,13 @@ let useStyles:any = createUseStyles((theme: any) => {
       container: {
         padding: 10,
         borderRadius: 9,
-        background: theme.lightBg,
+        background: theme.bgGrey,
         marginBottom: 20,
         "&:last-child": {
           marginBottom: 0
         },
-        paddingBottom: 20
+        paddingBottom: 20,
+        width: '100%'
       },
       title:{
         color: theme.textLightBlack
@@ -39,18 +39,45 @@ let useStyles:any = createUseStyles((theme: any) => {
     };
 });
 
-const Post: React.FC<PostProp> = ({title,id,comments}) => {
+const PostPage: React.FC<Props> = ({}) => {
     const classes = useStyles();
-    const [showComments, setShowComments] = useState(false as boolean);
+    const data = useContext(DataContext);
+    const {id} = useParams();
+    const [post, setPost] = useState({} as PostProp);
 
-    const handleShowComment = () => {
-      setShowComments(!showComments);    
+    useEffect(() => {
+      if(id){
+        getPost(Number(id));
+      }
+    },[id]);
+
+    const getPost= (id:Number) => {
+      const postData = { comments: [] as Array<CommentProps> } as PostProp;
+      data.data.posts.map((item:any) => {
+        if(item.id === id){
+          postData.id = item.id;
+          postData.title = item.title;
+        }
+      });
+      data.data.comments.map((comment:any) => {
+        if(comment.postId === id){
+          postData.comments.push(comment);
+        }
+      });
+      setPost({...postData});
     }
     
-
+console.log(post,"data")
     return (
         <div className={classes.container}>
-          <h1 className={classes.title}>
+          {Object.keys(post).length > 0 ? 
+          (
+            <Post id={post.id} title={post.title} comments={post.comments} />
+          ): 
+          (
+            'loading'
+          )}
+          {/* <h1 className={classes.title}>
             {title}
           </h1>
           <h3 className={classes.idHolder}>
@@ -75,9 +102,9 @@ const Post: React.FC<PostProp> = ({title,id,comments}) => {
             )
           }
 
-          {showComments && <AddComment postId={id}/>}
+          {showComments && <AddComment postId={id}/>} */}
         </div>
     );
 };
 
-export { Post };
+export { PostPage };
