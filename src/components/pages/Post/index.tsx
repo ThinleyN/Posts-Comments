@@ -67,7 +67,6 @@ const PostPage: React.FC<Props> = ({}) => {
       setPost({...postData});
     }
     
-console.log(post,"data")
     return (
         <div className={classes.container}>
           {Object.keys(post).length > 0 ? 
