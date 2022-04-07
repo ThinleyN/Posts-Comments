@@ -1,35 +1,45 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 import { useLocation } from "react-router";
-import { Button } from "../../atoms/Button";
+import { DataContext } from "../../../dataContext";
+import { Post } from "../../molecules/Post";
 
 const useStyles = createUseStyles((theme: any) => {
     return {
-        sidebar: {
-            background: theme.lightBg,
-            height: "100vh"
+        postContainer:{
+          width: "100%",
+          paddingTop: 20,
+          paddingBottom: 20
         },
-        menuBlock: {
-            height: "100%"
-        },
-        logo: {
-            margin: 24,
-            marginBottom: 28
-        },
-        sidebarIcon: {
-            minWidth: 14,
-            marginRight: 10
-        }
     };
 });
 
 const Posts = () => {
     const classes = useStyles();
     const location = useLocation();
-    const keys = ["posts"];
+    const value = useContext(DataContext);
+    const [posts, setPosts] = useState([] as Array<{
+        title: string,
+        id: number
+    }>);
+
+    useEffect(() => {
+      if(value && value.data){
+        init();
+      }
+    },[value]);
+    
+    const init = () => {
+      setPosts(value.data.posts);
+    }
+    
     return (
-        <div>
-          Posts
+        <div className={classes.postContainer}>
+          {posts.length && posts.map(post => {
+            return (
+              <Post title={post.title} id={post.id} />
+            )
+          })}
         </div>
     );
 };
