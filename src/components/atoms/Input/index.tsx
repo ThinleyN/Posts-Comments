@@ -5,7 +5,7 @@ import { createUseStyles } from "react-jss";
 export interface Props {
     placeholder?: string;
     type?: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement> |React.ChangeEvent<HTMLInputElement> ) => void;
     name?: string;
     className?: any;
     editValue?: string | number;
@@ -17,6 +17,7 @@ export interface Props {
     wrapperClass?: string;
     id?: string;
     errorFlag?: boolean;
+    textArea?: boolean;
 }
 
 let useStyles = createUseStyles((theme: any) => {
@@ -66,7 +67,7 @@ let useStyles = createUseStyles((theme: any) => {
     };
 });
 const TextField: React.FC<Props> = props => {
-    let { disabled } = props;
+    let { disabled,textArea } = props;
     const errorFlag = props.errorFlag;
     const classes = useStyles({ errorFlag });
 
@@ -85,29 +86,60 @@ const TextField: React.FC<Props> = props => {
         props.onChange && props.onChange(event);
     };
 
-    return (
-        <div className={`${props.wrapperClass} ${classes.wrapper}`}>
-            <div
-                className={classes.label}
-            >
-                {props.label}
+    if(textArea) {
+        const { TextArea } = Input;
+        return (
+            <div className={`${props.wrapperClass} ${classes.wrapper}`}>
+                <div
+                    className={classes.label}
+                >
+                    {props.label}
+                </div>
+                <TextArea
+                    rows={4}
+                    type={props.type}
+                    className={`${classes.text} ${props.className}`}
+                    placeholder={props.placeholder}
+                    name={props.name}
+                    value={props.editValue ? props.editValue : undefined}
+                    size={"large"}
+                    disabled={disabled}
+                    onChange={handleChange}
+                    id={props.id}
+                />
+                {textError && <p className={classes.error}>{textError}</p>}
+    
+                {props.error && <p className={classes.error}>{props.error}</p>}
+    
             </div>
-            <Input
-                type={props.type}
-                className={`${classes.text} ${props.className}`}
-                placeholder={props.placeholder}
-                name={props.name}
-                value={props.editValue ? props.editValue : undefined}
-                size={"large"}
-                disabled={disabled}
-                onChange={handleChange}
-                id={props.id}
-            />
-            {textError && <p className={classes.error}>{textError}</p>}
+        )
 
-            {props.error && <p className={classes.error}>{props.error}</p>}
+    }else{
+        return (
+            <div className={`${props.wrapperClass} ${classes.wrapper}`}>
+                <div
+                    className={classes.label}
+                >
+                    {props.label}
+                </div>
+                <Input
+                    type={props.type}
+                    className={`${classes.text} ${props.className}`}
+                    placeholder={props.placeholder}
+                    name={props.name}
+                    value={props.editValue ? props.editValue : undefined}
+                    size={"large"}
+                    disabled={disabled}
+                    onChange={handleChange}
+                    id={props.id}
+                />
+                {textError && <p className={classes.error}>{textError}</p>}
+    
+                {props.error && <p className={classes.error}>{props.error}</p>}
+    
+            </div>
+        );
+    }
 
-        </div>
-    );
 };
 export { TextField };
