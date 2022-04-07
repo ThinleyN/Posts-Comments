@@ -4,6 +4,7 @@ import { createUseStyles } from "react-jss";
 import { Button } from "../../atoms/Button";
 import { Comment } from "../Comments";
 import { AddComment } from "../AddComment";
+import { useNavigate } from "react-router-dom";
 
 export interface PostProp {
    id: number,
@@ -21,10 +22,16 @@ let useStyles:any = createUseStyles((theme: any) => {
         "&:last-child": {
           marginBottom: 0
         },
-        paddingBottom: 20
+        paddingBottom: 20,
       },
       title:{
-        color: theme.textLightBlack
+        color: theme.textLightBlack,
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        transition: 'all 0.3s ease',
+        "&:hover": {
+          color: theme.textPrimary
+        }
       },
       idHolder: {
         color: theme.textLightBlack
@@ -41,16 +48,22 @@ let useStyles:any = createUseStyles((theme: any) => {
 
 const Post: React.FC<PostProp> = ({title,id,comments}) => {
     const classes = useStyles();
+    const navigate = useNavigate();
     const [showComments, setShowComments] = useState(false as boolean);
 
     const handleShowComment = () => {
       setShowComments(!showComments);    
     }
+
+    const handleNavigate = (e:React.SyntheticEvent) => {
+      e.preventDefault();
+      navigate(`/post/${id}`);
+    }
     
 
     return (
-        <div className={classes.container}>
-          <h1 className={classes.title}>
+        <div className={classes.container} >
+          <h1 className={classes.title} onClick={handleNavigate}>
             {title}
           </h1>
           <h3 className={classes.idHolder}>
@@ -61,9 +74,9 @@ const Post: React.FC<PostProp> = ({title,id,comments}) => {
           </Button>
 
           {showComments && (
-           comments.length ?  comments.map(comment => {
+           comments.length ?  comments.map((comment,key) => {
               return(
-                <div key={comment.id} className={classes.commentHolder}>
+                <div key={key} className={classes.commentHolder}>
                   <Comment id={comment.id} postId={comment.postId} body={comment.body} />
                 </div>
               )

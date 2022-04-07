@@ -10,7 +10,8 @@ export const theme = {
     lightBg: "#ffffff",
     formLabelColor: "#707070",
     textLightBlack: "#272727",
-    bgGrey: '#F0F2F5'
+    bgGrey: '#F0F2F5',
+    textPrimary: "#1890ff"
   };
   
   export const defaultTheme = {

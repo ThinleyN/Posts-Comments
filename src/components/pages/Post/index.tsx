@@ -49,7 +49,8 @@ const PostPage: React.FC<Props> = ({}) => {
       if(id){
         getPost(Number(id));
       }
-    },[id]);
+    },[id,data.data]);
+    
 
     const getPost= (id:Number) => {
       const postData = { comments: [] as Array<CommentProps> } as PostProp;

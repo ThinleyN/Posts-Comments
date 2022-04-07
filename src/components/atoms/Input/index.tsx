@@ -5,7 +5,7 @@ import { createUseStyles } from "react-jss";
 export interface Props {
     placeholder?: string;
     type?: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement> |React.ChangeEvent<HTMLInputElement> ) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => void;
     name?: string;
     className?: any;
     editValue?: string | number;
@@ -73,7 +73,7 @@ const TextField: React.FC<Props> = props => {
 
     const [textError, setTextError] = useState("" as string);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { value } = event.currentTarget;
 
         if (props.positive && parseInt(value) < 0) {
@@ -97,7 +97,6 @@ const TextField: React.FC<Props> = props => {
                 </div>
                 <TextArea
                     rows={4}
-                    type={props.type}
                     className={`${classes.text} ${props.className}`}
                     placeholder={props.placeholder}
                     name={props.name}
